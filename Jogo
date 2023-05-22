@@ -14,33 +14,40 @@ func main() {
 	var num int
 	var sn string
 	var jogos int
-	armazemtentativa := make(map[int]int)
+
 	random := numaleatorio()
 	tentativas := 1
-	fmt.Println("Insira seu número")
+	kv := []int{}
+
+	fmt.Println("Advinhe um número de 1 a 100")
+
 	for {
 		fmt.Scan(&num)
 		if num > random {
-			fmt.Println("Seu número é maior. ")
+			fmt.Printf("%d é maior que o número. \n", num)
 			tentativas++
+
 		} else if num < random {
-			fmt.Println("Seu número é menor. ")
+			fmt.Printf("%d é menor que o número. \n", num)
 			tentativas++
+
 		} else {
-			if num == random {
-				fmt.Printf("Você acertou. Você usou %d tentativas. Você quer jogar novamente? [Y/N] ", tentativas)
-				fmt.Scan(&sn)
-				tentativas = 1
-				jogos++
-				armazemtentativa[jogos]++
-				if sn == "N" || sn == "n" {
-					fmt.Println("Fim de jogo.")
-					fmt.Printf("Você teve %d tentativas no jogo %d", armazemtentativa, jogos)
-					break
-				} else {
-					random = numaleatorio()
-					fmt.Println("Insira seu número")
+			fmt.Printf("Você acertou. Você usou %d tentativas. Você quer jogar novamente? [Y/N] ", tentativas)
+			fmt.Scan(&sn)
+			jogos++
+			kv = append(kv, tentativas)
+
+			if sn == "N" || sn == "n" {
+				fmt.Println("Fim de jogo.")
+				for i := 0; i < jogos; i++ {
+					fmt.Printf("Você teve %d tentativas no jogo %d ", kv[i], i+1)
 				}
+				break
+
+			} else {
+				tentativas = 1
+				random = numaleatorio()
+				fmt.Println("Advinhe um número de 1 a 100")
 			}
 		}
 	}
