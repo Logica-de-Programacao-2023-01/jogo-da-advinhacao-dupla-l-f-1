@@ -1,0 +1,47 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func numaleatorio() int {
+	random := rand.Intn(100) + 1
+	return random
+}
+
+func main() {
+	var num int
+	var sn string
+	var jogos int
+	armazemtentativa := make(map[int]int)
+	random := numaleatorio()
+	tentativas := 1
+	fmt.Println("Insira seu número")
+	for {
+		fmt.Scan(&num)
+		if num > random {
+			fmt.Println("Seu número é maior. ")
+			tentativas++
+		} else if num < random {
+			fmt.Println("Seu número é menor. ")
+			tentativas++
+		} else {
+			if num == random {
+				fmt.Printf("Você acertou. Você usou %d tentativas. Você quer jogar novamente? [Y/N] ", tentativas)
+				fmt.Scan(&sn)
+				tentativas = 1
+				jogos++
+				armazemtentativa[jogos]++
+				if sn == "N" || sn == "n" {
+					fmt.Println("Fim de jogo.")
+					fmt.Printf("Você teve %d tentativas no jogo %d", armazemtentativa, jogos)
+					break
+				} else {
+					random = numaleatorio()
+					fmt.Println("Insira seu número")
+				}
+			}
+		}
+	}
+}
