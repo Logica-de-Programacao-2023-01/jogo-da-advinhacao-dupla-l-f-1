@@ -1,0 +1,54 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func numaleatorio() int {
+	random := rand.Intn(100) + 1
+	return random
+}
+
+func main() {
+	var num int
+	var sn string
+	var jogos int
+
+	random := numaleatorio()
+	tentativas := 1
+	kv := []int{}
+
+	fmt.Println("Advinhe um número de 1 a 100")
+
+	for {
+		fmt.Scan(&num)
+		if num > random {
+			fmt.Printf("%d é maior que o número. \n", num)
+			tentativas++
+
+		} else if num < random {
+			fmt.Printf("%d é menor que o número. \n", num)
+			tentativas++
+
+		} else {
+			fmt.Printf("Você acertou. Você usou %d tentativas. Você quer jogar novamente? [Y/N] ", tentativas)
+			fmt.Scan(&sn)
+			jogos++
+			kv = append(kv, tentativas)
+
+			if sn == "N" || sn == "n" {
+				fmt.Println("Fim de jogo.")
+				for i := 0; i < jogos; i++ {
+					fmt.Printf("Você teve %d tentativas no jogo %d ", kv[i], i+1)
+				}
+				break
+
+			} else {
+				tentativas = 1
+				random = numaleatorio()
+				fmt.Println("Advinhe um número de 1 a 100")
+			}
+		}
+	}
+}
